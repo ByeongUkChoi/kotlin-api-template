@@ -26,8 +26,8 @@ class OrderApiTest {
         val userId = "cbw"
 
         // when
-        // TODO: mock controller
-        `when`(orderController.order())
+        // TODO: mock controller params
+        doNothing().`when`(orderController).order()
 
         // then
         mockMvc.perform(
