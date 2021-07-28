@@ -6,41 +6,11 @@
 ---
 
 ### Spec
-상품조회  
 주문하기  
 주문목록조회  
 주문상세조회  
 
 ### API Document
-#### 상품조회  
-##### Request
-```http request
-GET /products
-```
-#### Response
-```http request
-HTTP/1.1 200 Ok
-Content-Type: application/json
-
-[
-    {
-        "id": 1,
-        "name": "apple",
-        "price": 1000
-    },
-    {
-        "id": 2,
-        "name": "banana",
-        "price": 2000
-    },
-    {
-        "id": 3,
-        "name": "melon",
-        "price": 3000
-    }
-]
-```
-
 #### 주문하기  
 ##### Request
 ```http request
@@ -50,11 +20,13 @@ X-USER-ID: cbw
 [
     {
         "productId": 1,
-        "quantity": 2
+        "quantity": 2,
+        "totalPrice": 2000
     },
     {
         "productId": 2,
-        "quantity": 3
+        "quantity": 3,
+        "totalPrice": 6000
     }
 ]
 ```
@@ -66,6 +38,7 @@ HTTP/1.1 200 Ok
 #### Request
 ```http request
 GET /orders
+X-USER-ID: cbw
 ```
 #### Response
 ```http request
