@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/orders")
-class OrderController {
+class OrderController(private val orderService: OrderService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
@@ -13,14 +13,11 @@ class OrderController {
     }
 
     @GetMapping
-    fun getOrders(@RequestHeader("X-USER-ID") userId: String): List<Order> {
-
-        return ArrayList<Order>()
-    }
+    fun getOrders(@RequestHeader("X-USER-ID") userId: String): List<Order> = orderService.getOrders(userId)
 
     @GetMapping("/{orderId}")
-    fun getOrder(@RequestHeader("X-USER-ID") userId: String,
-                 @PathVariable orderId: Long): Order? {
-        return null
-    }
+    fun getOrder(
+        @RequestHeader("X-USER-ID") userId: String,
+        @PathVariable orderId: Long
+    ): Order = orderService.getOrder(userId, orderId)
 }

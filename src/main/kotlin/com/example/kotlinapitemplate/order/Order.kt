@@ -1,12 +1,17 @@
 package com.example.kotlinapitemplate.order
 
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+
 
 @Entity(name = "orders")
 class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    val id: Long,
+    val ordererId: String,
     val productId: Long,
     val quantity: Int,
     val totalPrice: Long) {

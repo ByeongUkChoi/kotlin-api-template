@@ -34,7 +34,7 @@ class GetOrdersTest {
 
         // when
         `when`(orderController.getOrders(userId))
-            .thenReturn(listOf(Order(orderId, productId, quantity, totalPrice)))
+            .thenReturn(listOf(Order(orderId, userId, productId, quantity, totalPrice)))
 
         // then
         mockMvc.perform(
