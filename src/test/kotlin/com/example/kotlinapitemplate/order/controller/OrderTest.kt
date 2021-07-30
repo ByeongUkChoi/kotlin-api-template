@@ -24,11 +24,10 @@ class OrderTest {
         // given
         val userId = "cbw"
 
-        // when
         // TODO: mock controller params
         doNothing().`when`(orderController).order(userId)
 
-        // then
+        // when & then
         mockMvc.perform(
             post("/orders")
                 .accept(MediaType.APPLICATION_JSON)

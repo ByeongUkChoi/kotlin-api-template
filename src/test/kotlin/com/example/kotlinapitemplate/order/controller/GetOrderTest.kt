@@ -32,11 +32,10 @@ class GetOrderTest {
         val quantity = 3
         val totalPrice = 4000L
 
-        // when
         `when`(orderController.getOrder(userId, orderId))
             .thenReturn(Order(orderId, userId, productId, quantity, totalPrice))
 
-        // then
+        // when & then
         mockMvc.perform(
             get("/orders/$orderId")
                 .accept(MediaType.APPLICATION_JSON)
