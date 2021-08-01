@@ -29,8 +29,6 @@ class OrderTest {
         val quantity = 2
         val totalPrice = 3000L
 
-
-        // TODO: mock controller params
         doNothing().`when`(orderController).order(userId, OrderRequest(productId, quantity, totalPrice))
 
         // when & then
