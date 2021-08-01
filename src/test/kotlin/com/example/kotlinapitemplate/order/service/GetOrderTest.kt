@@ -29,7 +29,7 @@ class GetOrderTest {
         val quantity = 3
         val totalPrice = 4000L
 
-        `when`(orderRepository.findByIdAAndOrdererId(orderId, userId))
+        `when`(orderRepository.findByIdAndOrdererId(orderId, userId))
             .thenReturn(Optional.of(Order(orderId, userId, productId, quantity, totalPrice)))
 
         // when

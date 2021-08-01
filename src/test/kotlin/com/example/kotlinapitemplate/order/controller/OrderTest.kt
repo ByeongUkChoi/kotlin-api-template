@@ -1,6 +1,7 @@
 package com.example.kotlinapitemplate.order.controller
 
 import com.example.kotlinapitemplate.order.OrderController
+import com.example.kotlinapitemplate.order.OrderRequest
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.doNothing
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,8 +25,13 @@ class OrderTest {
         // given
         val userId = "cbw"
 
+        val productId = 1L
+        val quantity = 2
+        val totalPrice = 3000L
+
+
         // TODO: mock controller params
-        doNothing().`when`(orderController).order(userId)
+        doNothing().`when`(orderController).order(userId, OrderRequest(productId, quantity, totalPrice))
 
         // when & then
         mockMvc.perform(
@@ -35,18 +41,11 @@ class OrderTest {
                 .header("X-USER-ID", userId)
                 .content(
                     """
-                    [
-                        {
-                            "productId": 1,
-                            "quantity": 2,
-                            "totalPrice": 2000
-                        },
-                        {
-                            "productId": 2,
-                            "quantity": 3,
-                            "totalPrice": 6000
-                        }
-                    ]
+                    {
+                        "productId": $productId,
+                        "quantity": $quantity,
+                        "totalPrice": $totalPrice
+                    }
                 """.trimIndent()
                 )
         ).andExpect(status().isOk)

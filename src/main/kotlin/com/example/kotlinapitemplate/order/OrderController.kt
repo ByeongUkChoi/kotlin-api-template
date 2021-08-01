@@ -9,7 +9,9 @@ class OrderController(private val orderService: OrderService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    fun order(@RequestHeader("X-USER-ID") userId: String) {
+    fun order(@RequestHeader("X-USER-ID") userId: String,
+              @RequestBody orderRequest: OrderRequest) {
+        orderService.orderProduct(orderRequest, userId)
     }
 
     @GetMapping

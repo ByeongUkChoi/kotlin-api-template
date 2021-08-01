@@ -17,18 +17,11 @@
 POST /orders
 X-USER-ID: cbw
 
-[
-    {
-        "productId": 1,
-        "quantity": 2,
-        "totalPrice": 2000
-    },
-    {
-        "productId": 2,
-        "quantity": 3,
-        "totalPrice": 6000
-    }
-]
+{
+    "productId": 1,
+    "quantity": 2,
+    "totalPrice": 2000
+}
 ```
 #### Response
 ```http request
