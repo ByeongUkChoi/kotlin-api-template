@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest
 class GetOrdersTest {
@@ -46,5 +47,15 @@ class GetOrdersTest {
             .andExpect(jsonPath("$.[0].productId", `is`(productId.toInt())))
             .andExpect(jsonPath("$.[0].quantity", `is`(quantity)))
             .andExpect(jsonPath("$.[0].totalPrice", `is`(totalPrice.toInt())))
+    }
+
+    @Test
+    fun `when empty header failure test`() {
+        mockMvc.perform(
+            get("/orders")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isBadRequest)
     }
 }
