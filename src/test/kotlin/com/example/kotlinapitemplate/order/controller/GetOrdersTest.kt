@@ -39,7 +39,6 @@ class GetOrdersTest {
         mockMvc.perform(
             get("/orders")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("X-USER-ID", userId)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -54,7 +53,6 @@ class GetOrdersTest {
         mockMvc.perform(
             get("/orders")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isBadRequest)
     }

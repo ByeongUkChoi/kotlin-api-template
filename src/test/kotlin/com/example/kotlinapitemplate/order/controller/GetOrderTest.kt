@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest
 class GetOrderTest {
@@ -38,13 +39,32 @@ class GetOrderTest {
         mockMvc.perform(
             get("/orders/$orderId")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("X-USER-ID", userId)
         )
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(status().isOk)
             .andExpect(jsonPath("$.id", `is`(orderId.toInt())))
             .andExpect(jsonPath("$.productId", `is`(productId.toInt())))
             .andExpect(jsonPath("$.quantity", `is`(quantity)))
             .andExpect(jsonPath("$.totalPrice", `is`(totalPrice.toInt())))
+    }
+
+    @Test
+    fun `when empty header failure test`() {
+        // given
+        val userId = "cbw"
+        val orderId = 1L
+        val productId = 2L
+        val quantity = 3
+        val totalPrice = 4000L
+
+        `when`(orderController.getOrder(userId, orderId))
+            .thenReturn(Order(orderId, userId, productId, quantity, totalPrice))
+
+        // when & then
+        mockMvc.perform(
+            get("/orders/$userId")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isBadRequest)
     }
 }
