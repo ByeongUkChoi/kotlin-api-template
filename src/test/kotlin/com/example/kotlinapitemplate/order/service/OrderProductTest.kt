@@ -45,9 +45,9 @@ class OrderProductTest {
         assertEquals(order.quantity, quantity)
         assertEquals(order.totalPrice, totalPrice)
     }
-}
 
-object MockitoHelper {
-    // use this in place of captor.capture() if you are trying to capture an argument that is not nullable
-    fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
+    object MockitoHelper {
+        // use this in place of captor.capture() if you are trying to capture an argument that is not nullable
+        fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
+    }
 }
