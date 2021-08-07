@@ -1,5 +1,7 @@
 package com.example.kotlinapitemplate.order
 
+import com.example.kotlinapitemplate.error.exception.BusinessException
+import com.example.kotlinapitemplate.error.exception.ErrorCode
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,7 +16,7 @@ class OrderService(private val orderRepository: OrderRepository) {
     fun getOrder(userId: String, orderId: Long): Order {
         val optionalOrder = orderRepository.findByIdAndOrdererId(orderId, userId)
         if (optionalOrder.isEmpty) {
-            // TODO: exception
+            throw BusinessException(ErrorCode.NOT_FOUND_ORDER)
         }
         return optionalOrder.get()
     }

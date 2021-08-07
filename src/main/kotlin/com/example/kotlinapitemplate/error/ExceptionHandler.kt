@@ -1,13 +1,15 @@
 package com.example.kotlinapitemplate.error
 
+import com.example.kotlinapitemplate.error.exception.BusinessException
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import java.lang.RuntimeException
 
 @ControllerAdvice
 class ExceptionHandler {
 
-    @ExceptionHandler
-    fun handle(exception: RuntimeException) {
+    @ExceptionHandler(BusinessException::class)
+    fun handle(e: BusinessException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(ErrorResponse(e.getCode(), e.getErrorMessage()), e.getHttpStatus())
     }
 }
