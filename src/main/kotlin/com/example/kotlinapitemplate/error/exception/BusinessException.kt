@@ -3,12 +3,7 @@ package com.example.kotlinapitemplate.error.exception
 import org.springframework.http.HttpStatus
 import java.lang.RuntimeException
 
-class BusinessException : RuntimeException {
-    private var errorCode: ErrorCode
-
-    constructor(errorCode: ErrorCode) {
-        this.errorCode = errorCode
-    }
+class BusinessException constructor(private val errorCode: ErrorCode) : RuntimeException() {
 
     fun getCode(): Int {
         return errorCode.code
