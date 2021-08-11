@@ -61,7 +61,7 @@ class GetOrderTest {
 
         // when & then
         mockMvc.perform(
-            get("/orders/$userId")
+            get("/orders/$orderId")
                 .accept(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isBadRequest)

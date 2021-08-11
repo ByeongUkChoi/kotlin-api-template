@@ -71,3 +71,17 @@ Content-Type: application/json
     "totalPrice": 2000
 }
 ```
+
+### Run (with gradle)
+#### test
+```shell
+./gradlew test
+```
+#### build
+```shell
+./gradlew build
+```
+#### run
+```shell
+./gradlew bootRun
+```
