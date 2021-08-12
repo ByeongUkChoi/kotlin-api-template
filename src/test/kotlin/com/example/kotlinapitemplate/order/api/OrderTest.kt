@@ -8,6 +8,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -24,10 +25,10 @@ class OrderTest {
         val quantity = 2
         val totalPrice = 3000L
 
+        // when & then
         mockMvc.perform(
             MockMvcRequestBuilders.post("/orders")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("X-USER-ID", userId)
                 .content(
                     """
@@ -38,6 +39,29 @@ class OrderTest {
                     }
                 """.trimIndent()
                 )
-        ).andExpect(MockMvcResultMatchers.status().isOk)
+        ).andExpect(status().isOk)
+    }
+
+    @Test
+    fun `when order api empty header failure test`() {
+        // given
+        val productId = 1L
+        val quantity = 2
+        val totalPrice = 3000L
+
+        // when & then
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/orders")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(
+                    """
+                    {
+                        "productId": $productId,
+                        "quantity": $quantity,
+                        "totalPrice": $totalPrice
+                    }
+                """.trimIndent()
+                )
+        ).andExpect(status().isBadRequest)
     }
 }
