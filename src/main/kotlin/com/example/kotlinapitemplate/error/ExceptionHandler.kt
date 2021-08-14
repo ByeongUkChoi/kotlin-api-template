@@ -15,7 +15,12 @@ class ExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun requestParamInvalidExceptionHandle(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
-        return ResponseEntity(ErrorResponse(ErrorCode.MISSING_REQUIRED_VALUES.code, ErrorCode.MISSING_REQUIRED_VALUES.message), ErrorCode.MISSING_REQUIRED_VALUES.httpStatus)
+        return ResponseEntity(
+            ErrorResponse(
+                ErrorCode.MISSING_REQUIRED_VALUES.code,
+                ErrorCode.MISSING_REQUIRED_VALUES.message
+            ), ErrorCode.MISSING_REQUIRED_VALUES.httpStatus
+        )
     }
 
     @ExceptionHandler(BusinessException::class)
