@@ -97,35 +97,16 @@ class OrderTest {
         """.trimIndent()
 
         // when & then
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("X-USER-ID", userId)
-                .content(contentWithoutProductId)
-        )
-            .andExpect(status().`is`(ErrorCode.MISSING_REQUIRED_VALUES.httpStatus.value()))
-            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUIRED_VALUES.code)))
-            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUIRED_VALUES.message)))
-
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("X-USER-ID", userId)
-                .content(contentWithoutQuantity)
-        )
-            .andExpect(status().`is`(ErrorCode.MISSING_REQUIRED_VALUES.httpStatus.value()))
-            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUIRED_VALUES.code)))
-            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUIRED_VALUES.message)))
-
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("X-USER-ID", userId)
-                .content(contentWithoutTotalPrice)
-        )
-            .andExpect(status().`is`(ErrorCode.MISSING_REQUIRED_VALUES.httpStatus.value()))
-            .andDo(print())
-            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUIRED_VALUES.code)))
-            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUIRED_VALUES.message)))
+        for (content in arrayListOf(contentWithoutProductId, contentWithoutQuantity, contentWithoutTotalPrice)) {
+            mockMvc.perform(
+                MockMvcRequestBuilders.post("/orders")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("X-USER-ID", userId)
+                    .content(content)
+            )
+                .andExpect(status().`is`(ErrorCode.MISSING_REQUIRED_VALUES.httpStatus.value()))
+                .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUIRED_VALUES.code)))
+                .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUIRED_VALUES.message)))
+        }
     }
 }
