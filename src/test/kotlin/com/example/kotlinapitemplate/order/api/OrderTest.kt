@@ -8,8 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -30,7 +29,7 @@ class OrderTest {
 
         // when & then
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/orders")
+            post("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("X-USER-ID", userId)
                 .content(
@@ -54,7 +53,7 @@ class OrderTest {
 
         // when & then
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/orders")
+            post("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     """
@@ -99,7 +98,7 @@ class OrderTest {
         // when & then
         for (content in arrayListOf(contentWithoutProductId, contentWithoutQuantity, contentWithoutTotalPrice)) {
             mockMvc.perform(
-                MockMvcRequestBuilders.post("/orders")
+                post("/orders")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("X-USER-ID", userId)
                     .content(content)
