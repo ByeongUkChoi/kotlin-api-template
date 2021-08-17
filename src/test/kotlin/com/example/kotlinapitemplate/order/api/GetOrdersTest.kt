@@ -30,4 +30,14 @@ class GetOrdersTest {
             .andExpect(status().isOk)
             .andExpect(content().json("[]"))
     }
+
+    @Test
+    fun `when get order api without header failure test`() {
+        // when & then
+        mockMvc.perform(
+            get("/orders")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isBadRequest)
+    }
 }
