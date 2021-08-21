@@ -7,3 +7,6 @@ spring:
   h2:
     console:
       enabled: true
+#  data.sql 쓰기위해
+#  jpa:
+#    defer-datasource-initialization: true
