@@ -1,5 +1,6 @@
 package com.example.kotlinapitemplate.order.controller
 
+import com.example.kotlinapitemplate.error.exception.ErrorCode
 import com.example.kotlinapitemplate.order.Order
 import com.example.kotlinapitemplate.order.OrderController
 import org.hamcrest.Matchers.`is`
@@ -64,6 +65,8 @@ class GetOrderTest {
             get("/orders/$orderId")
                 .accept(MediaType.APPLICATION_JSON)
         )
-            .andExpect(status().isBadRequest)
+            .andExpect(status().`is`(ErrorCode.MISSING_REQUEST_HEADER.httpStatus.value()))
+            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUEST_HEADER.code)))
+            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUEST_HEADER.message)))
     }
 }

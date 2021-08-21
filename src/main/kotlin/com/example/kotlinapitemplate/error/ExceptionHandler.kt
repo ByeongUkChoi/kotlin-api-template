@@ -4,6 +4,7 @@ import com.example.kotlinapitemplate.error.exception.BusinessException
 import com.example.kotlinapitemplate.error.exception.ErrorCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.MissingRequestHeaderException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
@@ -23,9 +24,18 @@ class ExceptionHandler {
         )
     }
 
+    @ExceptionHandler(MissingRequestHeaderException::class)
+    fun missingRequestHeaderExceptionHandle(e: MissingRequestHeaderException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                ErrorCode.MISSING_REQUEST_HEADER.code,
+                ErrorCode.MISSING_REQUEST_HEADER.message
+            ), ErrorCode.MISSING_REQUEST_HEADER.httpStatus
+        )
+    }
+
     @ExceptionHandler(BusinessException::class)
     fun businessExceptionHandle(e: BusinessException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(ErrorResponse(e.getCode(), e.getErrorMessage()), e.getHttpStatus())
     }
-
 }

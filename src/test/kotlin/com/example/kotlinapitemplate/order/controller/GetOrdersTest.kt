@@ -1,5 +1,6 @@
 package com.example.kotlinapitemplate.order.controller
 
+import com.example.kotlinapitemplate.error.exception.ErrorCode
 import com.example.kotlinapitemplate.order.Order
 import com.example.kotlinapitemplate.order.OrderController
 import org.hamcrest.Matchers.`is`
@@ -11,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -41,7 +41,7 @@ class GetOrdersTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .header("X-USER-ID", userId)
         )
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(status().isOk)
             .andExpect(jsonPath("$.[0].id", `is`(orderId.toInt())))
             .andExpect(jsonPath("$.[0].productId", `is`(productId.toInt())))
             .andExpect(jsonPath("$.[0].quantity", `is`(quantity)))
@@ -54,6 +54,8 @@ class GetOrdersTest {
             get("/orders")
                 .accept(MediaType.APPLICATION_JSON)
         )
-            .andExpect(status().isBadRequest)
+            .andExpect(status().`is`(ErrorCode.MISSING_REQUEST_HEADER.httpStatus.value()))
+            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUEST_HEADER.code)))
+            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUEST_HEADER.message)))
     }
 }

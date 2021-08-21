@@ -21,7 +21,7 @@ class OrderTest {
     @Test
     fun orderTest() {
         // given
-        val userId = "cbw"
+        val userId = "order-test-1"
 
         val productId = 1L
         val quantity = 2
@@ -64,7 +64,10 @@ class OrderTest {
                     }
                 """.trimIndent()
                 )
-        ).andExpect(status().isBadRequest)
+        )
+            .andExpect(status().`is`(ErrorCode.MISSING_REQUEST_HEADER.httpStatus.value()))
+            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUEST_HEADER.code)))
+            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUEST_HEADER.message)))
     }
 
     @Test

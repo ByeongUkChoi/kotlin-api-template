@@ -20,7 +20,7 @@ class GetOrderTest {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    @Sql(statements = ["INSERT INTO ORDERS(ID, ORDERER_ID, PRODUCT_ID, QUANTITY, TOTAL_PRICE) VALUES (1001, 'get-order-test-1', 2, 3, 4000)"])
+    @Sql(statements = ["INSERT INTO ORDERS (ID, ORDERER_ID, PRODUCT_ID, QUANTITY, TOTAL_PRICE) VALUES (1001, 'get-order-test-1', 2, 3, 4000)"])
     fun getOrderTest() {
         // given (sql script)
         val userId = "get-order-test-1"
@@ -44,14 +44,14 @@ class GetOrderTest {
 
     @Test
     fun `when get order api without header failure test`() {
-        // TODO: add exception
-
         // when & then
         mockMvc.perform(
             get("/orders/1")
                 .accept(MediaType.APPLICATION_JSON)
         )
-            .andExpect(status().isBadRequest)
+            .andExpect(status().`is`(ErrorCode.MISSING_REQUEST_HEADER.httpStatus.value()))
+            .andExpect(jsonPath("$.code", `is`(ErrorCode.MISSING_REQUEST_HEADER.code)))
+            .andExpect(jsonPath("$.message", `is`(ErrorCode.MISSING_REQUEST_HEADER.message)))
     }
 
     @Test
