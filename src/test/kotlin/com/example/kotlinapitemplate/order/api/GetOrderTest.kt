@@ -20,11 +20,11 @@ class GetOrderTest {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    @Sql(statements = ["INSERT INTO ORDERS (ID, ORDERER_ID, PRODUCT_ID, QUANTITY, TOTAL_PRICE) VALUES (1001, 'get-order-test-1', 2, 3, 4000)"])
+    @Sql(statements = ["INSERT INTO ORDERS (ID, ORDERER_ID, PRODUCT_ID, QUANTITY, TOTAL_PRICE) VALUES (2001, 'get-order-test-1', 2, 3, 4000)"])
     fun getOrderTest() {
         // given (sql script)
         val userId = "get-order-test-1"
-        val orderId = 1001L
+        val orderId = 2001L
         val productId = 2L
         val quantity = 3
         val totalPrice = 4000L
