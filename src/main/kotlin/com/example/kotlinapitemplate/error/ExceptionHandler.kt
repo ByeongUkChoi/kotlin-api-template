@@ -17,20 +17,16 @@ class ExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun requestParamInvalidExceptionHandle(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
-            ErrorResponse(
-                ErrorCode.MISSING_REQUIRED_VALUES.code,
-                ErrorCode.MISSING_REQUIRED_VALUES.message
-            ), ErrorCode.MISSING_REQUIRED_VALUES.httpStatus
+            ErrorResponse(ErrorCode.MISSING_REQUIRED_VALUES),
+            ErrorCode.MISSING_REQUIRED_VALUES.httpStatus
         )
     }
 
     @ExceptionHandler(MissingRequestHeaderException::class)
     fun missingRequestHeaderExceptionHandle(e: MissingRequestHeaderException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
-            ErrorResponse(
-                ErrorCode.MISSING_REQUEST_HEADER.code,
-                ErrorCode.MISSING_REQUEST_HEADER.message
-            ), ErrorCode.MISSING_REQUEST_HEADER.httpStatus
+            ErrorResponse(ErrorCode.MISSING_REQUEST_HEADER),
+            ErrorCode.MISSING_REQUEST_HEADER.httpStatus
         )
     }
 
